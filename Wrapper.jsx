@@ -47,8 +47,6 @@ module.exports = class Wrapper extends Plugins {
   async openCloneModal () {
     const plugins = await this.getPlugins();
     const clones = plugins.map(e => `git clone ${e}`);
-    console.log(clones);
-    console.log(clones.join(' && '));
     openModal(() => (
       <Modal className='powercord-text'>
         <Modal.Header>
@@ -66,7 +64,8 @@ module.exports = class Wrapper extends Plugins {
       const urls = [];
       [ ...powercord.pluginManager.plugins.values() ].forEach(async (e, i, a) => {
         const origin = (await exec('git config --get remote.origin.url', { cwd: e.entityPath })).stdout;
-        if (origin !== `https://github.com/${REPO_URL}`) {
+        console.log(origin)
+        if (!origin.includes(REPO_URL)) {
           urls.push(origin.replace('\n', ''));
         }
         if (i === a.length - 1) {
