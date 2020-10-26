@@ -64,7 +64,6 @@ module.exports = class Wrapper extends Plugins {
       const urls = [];
       [ ...powercord.pluginManager.plugins.values() ].forEach(async (e, i, a) => {
         const origin = (await exec('git config --get remote.origin.url', { cwd: e.entityPath })).stdout;
-        console.log(origin)
         if (!origin.includes(REPO_URL)) {
           urls.push(origin.replace('\n', ''));
         }
